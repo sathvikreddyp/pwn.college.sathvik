@@ -80,6 +80,25 @@ I learned how to search for keywords inside manual pages in linux. We have to us
 The reference used was the challenge statement and docummentation given in pwn.college. The inbuilt manpages was also used.
 
 # 5. Searching For Manuals
+In this challenge, it hid the manpage for the challenge by randomizing its name. It asked us to search the manpage database to find the hidden challenge man page. The following hints were given: 1) man man teaches you advanced usage of the man command itself, and you must use this knowledge to figure out how to search for the hidden manpage that will tell you how to use /challenge/challenge. 2) though the manpage is randomly named, you still actually use /challenge/challenge to get the flag.
+
+## My Solve
+FLag:  pwn.college{kLt7_btxperL0kXCgonLziPNwTI.QX2EDO0wiM1AzNzEzW}
+
+I first went into the manpage of 'man' command, and searched for the keyword 'search', as we had to find a argument to search the database of all manpages. I then looked around and saw the '--wildcard' argument, which searches all the manpages names and description for a keyword. I used this argument used the keyword flag to search all the manpages for flag. It then opened the manpage for '/challenge/challenge' program and inside that manpage was the argument when used with the program, gave the flag. The argument was ktbtxp 702. I used this command with the argument to get the flag.
+
+```
+hacker@man~searching-for-manuals:~$ man man
+hacker@man~searching-for-manuals:~$ man --wildcard flag
+hacker@man~searching-for-manuals:~$ /challenge/challenge  --ktbtxp 702
+Correct usage! Your flag: pwn.college{kLt7_btxperL0kXCgonLziPNwTI.QX2EDO0wiM1AzNzEzW}
+```
+
+## What I Learnt
+I learned that there is a manpage for the 'man' command also. I also learned that there is a searchable database containing all the manpages, and we can search many different things in that like keywords in both program/files names or descriptions. We can always use the manpages and the searching tool inside the manpages for reference.
+
+## References
+The reference used was the challenge statement and docummentation given in pwn.college. The inbuilt manpages was also used.
 
 # 6. Helpful Programs
 This program told us to use the '--help' argument with /challenge/challenge program to get hints on how to get the flag.
