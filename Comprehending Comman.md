@@ -98,7 +98,30 @@ I have learnt the working and application of the diff command and how to compare
 The references were the instructions provided by the pwn.college.
 
 # 6. Listing files
+In this challenge, ls command was introduced. The '/challenge/run' was given a random name and kept in '/challenge' directory. We had to run the renamed program to get the flag.
 
+## My Solve
+Flag: pwn.college{8zEC0_bfYZD0rnj6WEAajAAgnj-.QX4IDO0wiM1AzNzEzW}
+
+I first read all the components of the /challenge directory with the ls command. Once executed, I received two names, "4359-renamed-run-5690" "DESCRIPTION.md". Assuming that "4359-renamed-run-5690" is a file, I tried reading it with the cat command. I didn't recieve the flag, which means it is a program. I ran it as is and recieved the flag.
+
+ ```
+hacker@commands~listing-files:~$ ls /challenge
+7703-renamed-run-1116  DESCRIPTION.md
+hacker@commands~listing-files:~$ cat /challenge/7703-renamed-run-1116
+#!/opt/pwn.college/bash
+
+echo "Yahaha, you found me! Here is your flag:"
+cat /flag
+hacker@commands~listing-files:~$ /challenge/7703-renamed-run-1116
+Yahaha, you found me! Here is your flag:
+pwn.college{8zEC0_bfYZD0rnj6WEAajAAgnj-.QX4IDO0wiM1AzNzEzW}
+```
+## What I learnt 
+I have learnt the use and execution of the ls command. It is used to list all the components of a given directory to find their names.
+
+## References
+The references were the instructions provided by the pwn.college.
 
 # 7. Touching files
 In this challenge, we are to explore how to create new files by using the touch command.
