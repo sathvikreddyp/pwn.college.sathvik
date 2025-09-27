@@ -209,6 +209,141 @@ I have learnt how to list hidden files by using the ls -a command which may be h
 The references were the instructions provided by the pwn.college.
 
 # 11. An epic file system quest
+In this challenge, we are to retrieve the flag following a list of clues hidden in various files and directories using the cd, ls and cat commands.
+
+## My Solve
+Flag: pwn.college{AHW5jWIo_pQ5MusG7-fd6Hyh7T-.QX5IDO0wiM1AzNzEzW}
+
+I have performed the following commands to retrieve the flag:
+
+```
+hacker@commands~an-epic-filesystem-quest:~$ cd /
+hacker@commands~an-epic-filesystem-quest:/$ ls
+TIP  boot       dev  flag  lib    lib64   media  nix  proc  run   srv  tmp  var
+bin  challenge  etc  home  lib32  libx32  mnt    opt  root  sbin  sys  usr
+hacker@commands~an-epic-filesystem-quest:/$ cat TIP
+Lucky listing!
+The next clue is in: /opt/linux/linux-5.4/drivers/gpu/drm/nouveau/nvkm/subdev
+
+The next clue is **hidden** --- its filename starts with a '.' character. You'll need to look for it using special options to 'ls'.
+hacker@commands~an-epic-filesystem-quest:/$ cd  /opt/linux/linux-5.4/drivers/gpu/drm/nouveau/nvkm/subdev
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/drivers/gpu/drm/nouveau/nvkm/subdev$ ls
+Kbuild  bios  clk      fault  fuse  gsp  ibus      instmem  mc   mxm  pmu      therm  top
+bar     bus   devinit  fb     gpio  i2c  iccsense  ltc      mmu  pci  secboot  timer  volt
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/drivers/gpu/drm/nouveau/nvkm/subdev$ ls -a
+.   .NOTE   bar   bus  devinit  fb    gpio  i2c   iccsense  ltc  mmu  pci  secboot  timer  volt
+..  Kbuild  bios  clk  fault    fuse  gsp   ibus  instmem   mc   mxm  pmu  therm    top
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/drivers/gpu/drm/nouveau/nvkm/subdev$ cat  .NOTE
+Tubular find!
+The next clue is in: /usr/share/icons/Adwaita/512x512/mimetypes
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/drivers/gpu/drm/nouveau/nvkm/subdev$ cd  /usr/share/icons/Adwaita/512x512/mimetypes
+hacker@commands~an-epic-filesystem-quest:/usr/share/icons/Adwaita/512x512/mimetypes$ Adwaita/512x512/mimetypes
+bash: Adwaita/512x512/mimetypes: No such file or directory
+hacker@commands~an-epic-filesystem-quest:/usr/share/icons/Adwaita/512x512/mimetypes$ cat Adwaita/512x512/mimetypes
+cat: Adwaita/512x512/mimetypes: No such file or directory
+hacker@commands~an-epic-filesystem-quest:/usr/share/icons/Adwaita/512x512/mimetypes$ ls
+ALERT  application-x-executable.png  text-x-preview.png  x-office-presentation.png
+hacker@commands~an-epic-filesystem-quest:/usr/share/icons/Adwaita/512x512/mimetypes$ ALERT
+bash: ALERT: command not found
+hacker@commands~an-epic-filesystem-quest:/usr/share/icons/Adwaita/512x512/mimetypes$ cd ALERT
+bash: cd: ALERT: Not a directory
+hacker@commands~an-epic-filesystem-quest:/usr/share/icons/Adwaita/512x512/mimetypes$ cat ALERT
+Great sleuthing!
+The next clue is in: /usr/lib/python3/dist-packages/scipy/optimize/tests
+
+The next clue is **delayed** --- it will not become readable until you enter the directory with 'cd'.
+hacker@commands~an-epic-filesystem-quest:/usr/share/icons/Adwaita/512x512/mimetypes$ cd  /usr/lib/python3/dist-packages/scipy/optimize/tests
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/scipy/optimize/tests$ ls
+BLUEPRINT                        test_constraint_conversion.py     test_minpack.py
+__init__.py                      test_constraints.py               test_nnls.py
+__pycache__                      test_cython_optimize.py           test_nonlin.py
+test__basinhopping.py            test_differentiable_functions.py  test_optimize.py
+test__differential_evolution.py  test_hessian_update_strategy.py   test_regression.py
+test__dual_annealing.py          test_hungarian.py                 test_slsqp.py
+test__linprog_clean_inputs.py    test_lbfgsb_hessinv.py            test_tnc.py
+test__numdiff.py                 test_least_squares.py             test_trustregion.py
+test__remove_redundancy.py       test_linesearch.py                test_trustregion_exact.py
+test__root.py                    test_linprog.py                   test_trustregion_krylov.py
+test__shgo.py                    test_lsq_common.py                test_zeros.py
+test__spectral.py                test_lsq_linear.py
+test_cobyla.py                   test_minimize_constrained.py
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/scipy/optimize/tests$ cat BLUEPRINT
+Great sleuthing!
+The next clue is in: /opt/linux/linux-5.4/Documentation/devicetree/bindings/iio/timer
+
+Watch out! The next clue is **trapped**. You'll need to read it out without 'cd'ing into the directory; otherwise, the clue will self destruct!
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/scipy/optimize/tests$ ls  /opt/linux/linux-5.4/Documentation/devicetree/bindings/iio/timer
+LEAD-TRAPPED  stm32-lptimer-trigger.txt  stm32-timer-trigger.txt
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/scipy/optimize/tests$ cat  /opt/linux/linux-5.4/Documentation/devicetree/bindings/iio/timer/LEAD-TRAPPED
+Great sleuthing!
+The next clue is in: /opt/linux/linux-5.4/drivers/irqchip
+
+Watch out! The next clue is **trapped**. You'll need to read it out without 'cd'ing into the directory; otherwise, the clue will self destruct!
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/scipy/optimize/tests$ ls  /opt/linux/linux-5.4/drivers/irqchip
+Kconfig                     irq-digicolor.c                irq-ls1x.c                 irq-sa11x0.c
+Makefile                    irq-dw-apb-ictl.c              irq-madera.c               irq-sifive-plic.c
+NUGGET-TRAPPED              irq-eznps.c                    irq-mbigen.c               irq-sirfsoc.c
+alphascale_asm9260-icoll.h  irq-ftintc010.c                irq-meson-gpio.c           irq-sni-exiu.c
+built-in.a                  irq-gic-common.c               irq-mips-cpu.c             irq-st.c
+exynos-combiner.c           irq-gic-common.h               irq-mips-gic.c             irq-stm32-exti.c
+irq-al-fic.c                irq-gic-pm.c                   irq-mmp.c                  irq-sun4i.c
+irq-alpine-msi.c            irq-gic-realview.c             irq-mscc-ocelot.c          irq-sunxi-nmi.c
+irq-armada-370-xp.c         irq-gic-v2m.c                  irq-mtk-cirq.c             irq-tango.c
+irq-aspeed-i2c-ic.c         irq-gic-v3-its-fsl-mc-msi.c    irq-mtk-sysirq.c           irq-tb10x.c
+irq-aspeed-vic.c            irq-gic-v3-its-pci-msi.c       irq-mvebu-gicp.c           irq-tegra.c
+irq-ath79-cpu.c             irq-gic-v3-its-platform-msi.c  irq-mvebu-icu.c            irq-ti-sci-inta.c
+irq-ath79-misc.c            irq-gic-v3-its.c               irq-mvebu-odmi.c           irq-ti-sci-intr.c
+irq-ativic32.c              irq-gic-v3-mbi.c               irq-mvebu-pic.c            irq-ts4800.c
+irq-atmel-aic-common.c      irq-gic-v3.c                   irq-mvebu-sei.c            irq-uniphier-aidet.c
+irq-atmel-aic-common.h      irq-gic-v4.c                   irq-mxs.c                  irq-versatile-fpga.c
+irq-atmel-aic.c             irq-gic.c                      irq-nvic.c                 irq-vf610-mscm-ir.c
+irq-atmel-aic5.c            irq-goldfish-pic.c             irq-omap-intc.c            irq-vic.c
+irq-bcm2835.c               irq-hip04.c                    irq-ompic.c                irq-vt8500.c
+irq-bcm2836.c               irq-i8259.c                    irq-or1k-pic.c             irq-xilinx-intc.c
+irq-bcm6345-l1.c            irq-imgpdc.c                   irq-orion.c                irq-xtensa-mx.c
+irq-bcm7038-l1.c            irq-imx-gpcv2.c                irq-partition-percpu.c     irq-xtensa-pic.c
+irq-bcm7120-l2.c            irq-imx-irqsteer.c             irq-pic32-evic.c           irq-zevio.c
+irq-brcmstb-l2.c            irq-ingenic-tcu.c              irq-rda-intc.c             irqchip.c
+irq-clps711x.c              irq-ingenic.c                  irq-renesas-h8300h.c       qcom-irq-combiner.c
+irq-crossbar.c              irq-ixp4xx.c                   irq-renesas-h8s.c          qcom-pdc.c
+irq-csky-apb-intc.c         irq-jcore-aic.c                irq-renesas-intc-irqpin.c  spear-shirq.c
+irq-csky-mpintc.c           irq-keystone.c                 irq-renesas-irqc.c
+irq-davinci-aintc.c         irq-lpc32xx.c                  irq-renesas-rza1.c
+irq-davinci-cp-intc.c       irq-ls-scfg-msi.c              irq-s3c24xx.c
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/scipy/optimize/tests$ cat /opt/linux/linux-5.4/drivers/irqchip/NUGGET-TRAPPED
+Congratulations, you found the clue!
+The next clue is in: /usr/local/lib/python3.8/dist-packages/setuptools/_vendor/importlib_resources/tests/namespacedata01/subdirectory
+hacker@commands~an-epic-filesystem-quest:/usr/lib/python3/dist-packages/scipy/optimize/tests$ cd  /usr/local/lib/python3.8/dist-packages/setuptools/_vendor/importlib_resources/tests/namespacedata01/subdirectory
+hacker@commands~an-epic-filesystem-quest:/usr/local/lib/python3.8/dist-packages/setuptools/_vendor/importlib_resources/tests/namespacedata01/subdirectory$ ls
+DOSSIER  binary.file
+hacker@commands~an-epic-filesystem-quest:/usr/local/lib/python3.8/dist-packages/setuptools/_vendor/importlib_resources/tests/namespacedata01/subdirectory$ cat DOSSIER
+Yahaha, you found me!
+The next clue is in: /opt/linux/linux-5.4/arch/h8300/include/uapi/asm
+
+The next clue is **delayed** --- it will not become readable until you enter the directory with 'cd'.
+hacker@commands~an-epic-filesystem-quest:/usr/local/lib/python3.8/dist-packages/setuptools/_vendor/importlib_resources/tests/namespacedata01/subdirectory$ cd  /opt/linux/linux-5.4/arch/h8300/include/uapi/asm
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/arch/h8300/include/uapi/asm$ ls
+CLUE  Kbuild  bitsperlong.h  byteorder.h  ptrace.h  sigcontext.h  signal.h  unistd.h
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/arch/h8300/include/uapi/asm$ cat CLUE
+Yahaha, you found me!
+The next clue is in: /opt/linux/linux-5.4/arch/m68k/coldfire
+
+Watch out! The next clue is **trapped**. You'll need to read it out without 'cd'ing into the directory; otherwise, the clue will self destruct!
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/arch/h8300/include/uapi/asm$ ls  /opt/linux/linux-5.4/arch/m68k/coldfire
+Makefile            clk.c        entry.S    intc-2.c     intc-simr.c  m523x.c  m527x.c  m5407.c    nettel.c  sltimers.c
+REVELATION-TRAPPED  device.c     firebee.c  intc-5249.c  intc.c       m5249.c  m528x.c  m5441x.c   pci.c     stmark2.c
+amcore.c            dma.c        gpio.c     intc-525x.c  m5206.c      m525x.c  m5307.c  m54xx.c    pit.c     timers.c
+cache.c             dma_timer.c  head.S     intc-5272.c  m520x.c      m5272.c  m53xx.c  mcf8390.c  reset.c   vectors.c
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/arch/h8300/include/uapi/asm$ cat /opt/linux/linux-5.4/arch/m68k/coldfire/REVELATION-TRAPPED
+CONGRATULATIONS! Your perserverence has paid off, and you have found the flag!
+It is: pwn.college{AHW5jWIo_pQ5MusG7-fd6Hyh7T-.QX5IDO0wiM1AzNzEzW}
+```
+
+## What I learnt
+I have learnt how to efficiently use the cat ls and cd command to retrieve the flag. I followed the clues given by the pwn.college and the bash. One clue let to another and so on. I started off with cd'ing to the root directory, then listed all the files. I then kept reading the clues which led me to further directories to which I kept cd'ing to.
+
+## References
+The references were the instructions provided by the pwn.college.
 
 # 12. Making directories
 In this challenge, we need to make a /tmp/pwn directory and make a college file in it and retrieve the flag.
@@ -310,5 +445,23 @@ I have learnt how to use the find command to find a given file in a directory.
 ## References
 The references were the instructions provided by the pwn.college.
 
+# 14. Linking files
+In this challenge, it is given that /flag file has the flag. and '/challenge/catflag' command reads out '/home/hacker/not-the-flag', and we have to use symlink and fool it to give the flag.
 
-# 14. 
+## My Solve
+Flag: pwn.college{Mk64LQu8l21VSPRlhr_OuhoncJa.QX5ETN1wiM1AzNzEzW}
+
+It is given that /challenge/catflag reads /home/hacker/not-the-flag, and /flag file has the flag. So we have to link /flag file with /home/hacker/not-the-flag using ln command with -s argument for symbolic/soft link. After that we have to run the /challenge/catflag command to get the flag, as it will read /home/hacker/not-the-flag, which is a symbolic link to /flag file.
+
+```
+hacker@commands~linking-files:~$ ln -s /flag /home/hacker/not-the-flag
+hacker@commands~linking-files:~$ /challenge/catflag
+About to read out the /home/hacker/not-the-flag file!
+pwn.college{Mk64LQu8l21VSPRlhr_OuhoncJa.QX5ETN1wiM1AzNzEzW}
+```
+## What I Learnt 
+I learned about links and about the different types of links: soft link and hard link. Soft links are mostly used. For soft links, we use ln command with -s argument, and for hard links we use ln command without any argument.
+
+## References
+
+The references were the instructions provided by the pwn.college.
