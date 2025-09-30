@@ -106,3 +106,4 @@ I learnt that we can even print the contents of the variable using env command o
 The reference was the problem statement provided by the pwn.college.
 
 # 6. Storing command output
+
