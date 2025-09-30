@@ -299,3 +299,88 @@ I learned 1 more use of grep, with the -v argument, the command shows lines whic
 The References I used was the problem statement provided by the pwn.college.
 
 # 10. Duplicating piped data with tee
+In this challenge, they told us that /challenge/pwn must be piped into /challenge/college, but we need to intercept the data to see what pwn needs from you, using the tee command.
+
+## My SOlve
+Flag: pwn.college{QhhWn2oGMicqD00Ka086T00EZx6.QXxITO0wiM1AzNzEzW}
+
+I first used the ls command to list all the files in the home directory. I read cat file but nothing was there in that. Then I tried to pipe the /challenge/pwn to /challenge/college but the secret code was missing.  I then used the tee command to duplicate the output of /challenge/pwn to the PWN file, then I read the file to get the secret code and then I used that secret code as argument with /challenge/pwn and connected the output of that with /challenge/college using the pipe operator (|) to get the flag.
+
+```
+hacker@piping~duplicating-piped-data-with-tee:~$ ls
+COLLEGE  PWN  PWn  college  h  instructions  my  myflag  not-the-flag  the-flag
+hacker@piping~duplicating-piped-data-with-tee:~$ cat pwn
+cat: pwn: No such file or directory
+hacker@piping~duplicating-piped-data-with-tee:~$ /challenge/pwn | /challenge/college
+Processing...
+The input to 'college' does not contain the correct secret code! This code
+should be provided by the 'pwn' command. HINT: use 'tee' to intercept the
+output of 'pwn' and figure out what the code needs to be.
+hacker@piping~duplicating-piped-data-with-tee:~$ /challenge/pwn | tee PWN | /challenge/college
+Processing...
+WARNING: you are overwriting file PWN with tee's output...
+The input to 'college' does not contain the correct secret code! This code
+should be provided by the 'pwn' command. HINT: use 'tee' to intercept the
+output of 'pwn' and figure out what the code needs to be.
+hacker@piping~duplicating-piped-data-with-tee:~$ cat pwn
+cat: pwn: No such file or directory
+hacker@piping~duplicating-piped-data-with-tee:~$ cat PWN
+Usage: /challenge/pwn --secret [SECRET_ARG]
+
+SECRET_ARG should be "QhhWn2oG"
+hacker@piping~duplicating-piped-data-with-tee:~$ /challenge/pwn --secret QhhWn2oG
+Processing...
+You must pipe the output of /challenge/pwn into /challenge/college (or 'tee'
+for debugging).
+hacker@piping~duplicating-piped-data-with-tee:~$ /challenge/pwn --secret QhhWn2oG | /challenge/college
+Processing...
+Correct! Passing secret value to /challenge/college...
+Great job! Here is your flag:
+pwn.college{QhhWn2oGMicqD00Ka086T00EZx6.QXxITO0wiM1AzNzEzW}
+```
+
+## What I Learnt
+I learned about the tee command, which can be used to duplicate data flowing through your pipes to any number of files provided on the command line. For example: "echo hi | tee blah hello" will duplicate the output of "echo hi" which is hi to the files "blah" and "hello", along with the standard output. Basically we end up with three copies of the piped-in data: one to stdout, one to the blah file, and one to the hello file.
+
+## References
+The References I used was the problem statement provided by the pwn.college.
+
+# 11. Process substitution for input
+In this challenge, they told we have two sets of command outputs: /challenge/print_decoys, which will print a bunch of decoy flags, and /challenge/print_decoys_and_flag which will print those same decoys plus the real flag. They asked us to use Use process substitution with diff to compare the outputs of these two programs and find the flag.
+
+## My Solve
+Flag: > pwn.college{0VaClsJ1-sMU8AH2hbQKPe2fJVw.0lNwMDOxwiM1AzNzEzW}
+
+I used the diff command with input process substitution of /challenge/print_decoys and /challenge/print_decoys_and_flags as arguments (diff <(/challenge/print_decoys) <(/challenge/print_decoys_and_flag)) to get the real flag.
+
+```
+hacker@piping~process-substitution-for-input:~$  diff <(/challenge/print_decoys) <(/challenge/print_decoys_and_flag)
+13a14
+> pwn.college{0VaClsJ1-sMU8AH2hbQKPe2fJVw.0lNwMDOxwiM1AzNzEzW}
+```
+
+## What I Learnt
+I learned that Linux follows the philosophy that "everything is a file". That is, the system strives to provide file-like access to most resources, including the input and output of running programs! The shell follows this philosophy, allowing you to, for example, use any utility that takes file arguments on the command line and hook it up to the output of programs. I also learned about process substitition, where we can hook input and output of programs to arguments of commands. For reading from a command (input process substitution), we use <(command). When we write "<(command)", bash will run the command and hook up its output to a temporary file that it will create. This isn't a real file, it's called a named pipe, in that it has a file name.
+
+## References
+The References I used was the problem statement provided by the pwn.college.
+
+# 12. Writing to multiple programs
+In this challenge, we have /challenge/hack, /challenge/the, and /challenge/planet. We have to run the /challenge/hack command, and duplicate its output as input to both the /challenge/the and the /challenge/planet commands.
+
+## My Solve
+Flag: pwn.college{YKLRoveVOpo3A9895jBoysUmebg.QXwgDN1wiM1AzNzEzW}
+
+I used tee command to duplicate the output of /challenge/hack to the input of both the /challenge/the and the /challenge/planet commands simultaneously to get the flag. 
+
+```
+hacker@piping~writing-to-multiple-programs:~$ /challenge/hack | tee >(/challenge/the) >(/challenge/planet)
+This secret data must directly and simultaneously make it to /challenge/the and
+/challenge/planet. Don't try to copy-paste it; it changes too fast.
+24697130233145130299
+Congratulations, you have duplicated data into the input of two programs! Here
+is your flag:
+pwn.college{YKLRoveVOpo3A9895jBoysUmebg.QXwgDN1wiM1AzNzEzW}
+```
+
+## What I Learnt
