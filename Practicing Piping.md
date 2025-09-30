@@ -384,3 +384,29 @@ pwn.college{YKLRoveVOpo3A9895jBoysUmebg.QXwgDN1wiM1AzNzEzW}
 ```
 
 ## What I Learnt
+
+## References
+The References I used was the problem statement provided by the pwn.college.
+
+# 13. Split-piping stderr and stdout 
+In this challenge, we are asked to get hack's stdout to go to /challenge/planet and stderr to go to /challenge/the — separately, not mixed.
+
+## My Solve
+Flag: pwn.college{IW_0lWlrE7v5acwBLku7q3TjQ7o.QXxQDM2wiM1AzNzEzW}
+
+I wrote /challenge/hack 2> >( /challenge/the ) | /challenge/planet in the terminal because | /challenge/planet connects hack's stdout to planet's stdin, 2> >( /challenge/the ) redirects hack's stderr into a process substitution; the shell runs /challenge/the with its stdin coming from that redirection, so stderr goes into /challenge/the alone.
+
+```
+hacker@piping~split-piping-stderr-and-stdout:~$ /challenge/hack 2> >( /challenge/the ) | /challenge/planet
+Congratulations, you have learned a redirection technique that even experts
+struggle with! Here is your flag:
+pwn.college{IW_0lWlrE7v5acwBLku7q3TjQ7o.QXxQDM2wiM1AzNzEzW}
+```
+
+## What I Learnt
+I learnt how to redirect stderr and stdout seperately, not mixed.
+
+## References
+The reference was the problem statement provided by the pwn.college.
+
+# 14. Named pipes
