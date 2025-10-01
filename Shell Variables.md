@@ -149,3 +149,21 @@ I have learnt how to read the input given by us and assign it to the variable us
 The reference was the problem statement provided by the pwn.college.
 
 # 8. Reading Files
+In this challenge, they asked us to use read to read /challenge/read_me into the PWN environment variable to get the flag. They also told that the /challenge/read_me will keep changing, so you'll need to read it right into the PWN variable with one command.
+
+## My Solve
+Flag: pwn.college{03N5s_zNibo1-gz9WbPq_JPGhfY.QXwIDO0wiM1AzNzEzW}
+
+I first redirected /challenge/read_me output to the standard input of read, so it reads the output into PWN.
+
+```
+hacker@variables~reading-files:~$ read PWN < /challenge/read_me
+You've set the PWN variable properly! As promised, here is the flag:
+pwn.college{03N5s_zNibo1-gz9WbPq_JPGhfY.QXwIDO0wiM1AzNzEzW}
+```
+
+## What I Learnt
+I have learnt how to read files directly into a variable through the read command.
+
+## References
+The reference was the problem statement provided by the pwn.college.
