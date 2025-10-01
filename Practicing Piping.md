@@ -410,3 +410,29 @@ I learnt how to redirect stderr and stdout seperately, not mixed.
 The reference was the problem statement provided by the pwn.college.
 
 # 14. Named pipes
+In this challenge, they asked us to to create a /tmp/flag_fifo file and redirect the stdout of /challenge/run to it. If we are successful, /challenge/run will write the flag into the FIFO.
+
+## My Solve
+Flag: pwn.college{Ae-Gx0DX02k80OGYzuVklI3J3GZ.01MzMDOxwiM1AzNzEzW}
+
+I first made a new fifo by using the mkfifo command. I then redirected the output of /challenge/run to the fifo file using ">", then i read the fifo file to get the flag.
+
+```
+hacker@piping~named-pipes:~$ mkfifo /tmp/flag_fifo
+hacker@piping~named-pipes:~$ /challenge/run > /tmp/flag_fifo
+hacker@piping~named-pipes:~$ cat /tmp/flag_fifo
+You've correctly redirected /challenge/run's stdout to a FIFO at
+/tmp/flag_fifo! Here is your flag:
+pwn.college{Ae-Gx0DX02k80OGYzuVklI3J3GZ.01MzMDOxwiM1AzNzEzW}
+```
+
+## What I Learnt
+I learned about fifo (First In First Out), which are basically named pipes. We can make a fifo by using the mkfifo command. Unlike the automatic named pipes from process substitution: You control where FIFOs are created, they persist until you delete them, any process can write to them by path (e.g., echo hi > my_pipe), you can see them with ls and examine them like files. FIFO block any operations on them until both the read side of the pipe and the write side of the pipe are ready. The key difference between using FIFO and normal files is:
+
+No disk storage: FIFOs pass data directly between processes in memory - nothing is saved to disk
+Ephemeral data: Once data is read from a FIFO, it's gone (unlike files where data persists)
+Automatic synchronization: Writers block until the readers are ready, and vice-versa. This is actually useful! It provides automatic synchronization. Consider the example above: with a FIFO, it doesn't matter if cat myfifo or echo pwn > myfifo is executed first; each would just wait for the other. With files, you need to make sure to execute the writer before the reader.
+Complex data flows: FIFOs are useful for facilitating complex data flows, merging and splitting data in flexible ways, and so on. For example, FIFOs support multiple readers and writers.
+
+## References
+The reference was the problem statement provided by the pwn.college.
