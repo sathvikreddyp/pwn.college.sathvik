@@ -106,4 +106,46 @@ I learnt that we can even print the contents of the variable using env command o
 The reference was the problem statement provided by the pwn.college.
 
 # 6. Storing command output
+In this challenge, they asked us to read the output of the /challenge/run command directly into a variable called PWN, then read PWN to get the flag.
 
+## My Solve
+Flag: pwn.college{oKx37TotDB5JDmxIQEaOorhnbLl.QX1cDN1wiM1AzNzEzW}
+
+I first assigned the output of /challenge/run to the PWN variable using () and $ signs, then I read the variable using echo command to get the flag.
+
+```
+hacker@variables~storing-command-output:~$  PWN=$(/challenge/run)
+Congratulations! You have read the flag into the PWN variable. Now print it out
+and submit it!
+hacker@variables~storing-command-output:~$ echo $PWN
+pwn.college{oKx37TotDB5JDmxIQEaOorhnbLl.QX1cDN1wiM1AzNzEzW}
+```
+
+## What I Learnt
+I learned about command substitution, which is basically assigning the output of a command to a variable. We can do it by using $ and (). For example: variable=$(COMMAND).
+
+## References
+The reference was the problem statement provided by the pwn.college.
+
+# 7. Reading Input
+In this challenge, they asked us to use the read command to set the PWN variable to the value COLLEGE to get the flag.
+
+## My Solve
+Flag: pwn.college{IXPh1bQCozyJdr3lFzbqhmmFIHh.QX4cTN0wiM1AzNzEzW}
+
+I used the read command to take input from the user and stored it in PWN variable. I also used the -p command, which is used for giving a prompt. I used "Input: " as the prompt. I then typed COLLEGE as the input to get the flag.
+
+```
+hacker@variables~reading-input:~$ read -p "input: " PWN
+input: COLLEGE
+You've set the PWN variable properly! As promised, here is the flag:
+pwn.college{IXPh1bQCozyJdr3lFzbqhmmFIHh.QX4cTN0wiM1AzNzEzW}
+```
+
+## What I Learnt
+I have learnt how to read the input given by us and assign it to the variable using "read".
+
+## References
+The reference was the problem statement provided by the pwn.college.
+
+# 8. Reading Files
