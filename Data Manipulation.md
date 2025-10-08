@@ -83,89 +83,9 @@ In this challenge, they told that /challenge/run program will give a bunch of li
 ## My Solve
 Flag: pwn.college{M-XzHmZ0ci3-bQfzKVt2fg29XRC.01NxEzNxwiM1AzNzEzW}
 
-I first ran the /challenge/run program to see the output. The 2nd coloumn had the flag. I then connected the output of the program to the input of cut command (-d " " -f 2) as argument to get the 6th coloumn. I then connected that output with the input of tr command with -d "\n" as argument to remove all the newlines and get the flag in 1 line.
+I first ran the /challenge/run program to see the output. The 2nd coloumn had the flag. I then connected the output of the program to the input of cut command (-d " " -f 2) as argument to get the 2nd coloumn. I then connected that output with the input of tr command with -d "\n" as argument to remove all the newlines and get the flag in 1 line.
 
 ```
-hacker@data~deleting-newlines:~$ ls /challenge/run
-/challenge/run
-hacker@data~deleting-newlines:~$ /challenge/run | tr -d "\n"
-Your line-split flag: pwn.college{QpHeSuLfuWyWHUPCYUETJNixzh9.0VNxEzNxwiM1AzNzEzW}hacker@data~deleting-newlines:~$  /chahacker@data~deleting-newlines:~$  /challenge/run
-/challenge/run
-Your line-split flag:
-p
-w
-n
-.col
-l
-ege
-{
-Q
-pH
-e
-Su
-L
-fu
-W
-y
-W
-H
-U
-P
-CYUET
-J
-Nix
-z
-h
-9.
-0
-V
-N
-xEzNxw
-iM
-1
-AzN
-z
-E
-zW
-}
-Your line-split flag:
-pw
-n.
-c
-olleg
-e{Q
-pHeSuLf
-uW
-yW
-H
-U
-PC
-YUE
-T
-J
-N
-i
-xzh9
-.
-0V
-Nx
-EzNx
-wi
-M
-1A
-z
-NzE
-z
-W
-}
-
-hacker@data~deleting-newlines:~$
-Connected!
-hacker@data~extracting-the-first-lines-with-head:~$ /challenge/pwn | head -n 7 | /challenge/college
-Congratulations, you piped the right codes!
-pwn.college{EtJX3m9aKWQryDxcTDe4AjLAbbS.0lNxEzNxwiM1AzNzEzW}
-hacker@data~extracting-the-first-lines-with-head:~$
-Connected!
 hacker@data~extracting-specific-sections-of-text:~$ /challenge/run
 1002 p
 2533 w
@@ -246,70 +166,6 @@ Flag: pwn.college{gRWQCddh5Kdvp1CUQz6tlfikLE4.0FM0MDOxwiM1AzNzEzW}
 I used the sort command on /challenge/flags.txt, which will sort the file alphabetically, then the flag was at the last.
 
 ```
-hacker@data~extracting-specific-sections-of-text:~$ /challenge/run
-1002 p
-2533 w
-16287 n
-6642 .
-217 c
-13971 o
-7019 l
-5403 l
-14435 e
-1793 g
-2012 e
-13386 {
-32479 M
-2536 -
-1204 X
-29322 z
-24670 H
-19140 m
-18951 Z
-14534 0
-20380 c
-15342 i
-13170 3
-13478 -
-3994 b
-29462 Q
-16752 f
-10987 z
-12034 K
-18434 V
-4554 t
-30248 2
-24568 f
-15574 g
-8279 2
-19024 9
-22112 X
-17419 R
-20183 C
-2869 .
-26350 0
-11398 1
-17185 N
-18059 x
-32355 E
-7210 z
-5079 N
-12100 x
-17567 w
-23179 i
-28399 M
-7710 1
-18713 A
-5086 z
-32063 N
-20776 z
-13545 E
-13767 z
-23175 W
-275 }
-hacker@data~extracting-specific-sections-of-text:~$ /challenge/run | cut -d " " -f 2 | tr -d "\n"
-pwn.college{M-XzHmZ0ci3-bQfzKVt2fg29XRC.01NxEzNxwiM1AzNzEzW}hacker@data~extracting-specific-sections-of-text:~$
-Connected!
 hacker@data~sorting-data:~$ sort /challenge/flags.txt
 ovm.colldge{fQWQCcch5Jdup0CUQz6tkfikLD4.0FL0MDOxwiM1AyMzEzW}
 ovn.bnllege{gQWQBddh5Jdvp0CTQy6tlfhkKE4.0FM0LCOxvhL0AyNzEzW}
