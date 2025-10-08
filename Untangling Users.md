@@ -1,3 +1,14 @@
+# 1. Becoming root with su
+## My Solve
+Flag: pwn.college{gQsgqsgDPral2d0RXZkqDkvxszQ.QX1UDN1wiM1AzNzEzW}
+
+```
+hacker@users~becoming-root-with-su:~$ su
+Password:
+root@users~becoming-root-with-su:/home/hacker# cat /flag
+pwn.college{gQsgqsgDPral2d0RXZkqDkvxszQ.QX1UDN1wiM1AzNzEzW}
+```
+
 # 2. Other users with su
 ## My Solve
 Flag: pwn.college{oKVZwsqjazUItlizGYMEvAP3E-Y.QX2UDN1wiM1AzNzEzW}
@@ -39,4 +50,9 @@ pwn.college{wdBSmKGtK2GZXDfhP0xF4I2B0Zi.QX3UDN1wiM1AzNzEzW}
 
 # 4. Using sudo
 ## My Solve
-Flag: 
+Flag: pwn.college{Qo5_eGSHVDsqd8QZuIOQPgtfl68.QX4UDN1wiM1AzNzEzW}
+
+```
+hacker@users~using-sudo:~$ sudo cat /flag
+pwn.college{Qo5_eGSHVDsqd8QZuIOQPgtfl68.QX4UDN1wiM1AzNzEzW}
+```
