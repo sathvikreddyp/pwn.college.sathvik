@@ -13,7 +13,7 @@ Now I will sleep for a while (so that you could find me with 'ps').
 ```
 
 # 2. Killing Processes
-## My SOlve
+## My Solve
 Flag: pwn.college{sygP8--5Y9Dw0v8zEEh29ONPSA5.QXyQDO0wiM1AzNzEzW}
 
 ```
@@ -343,4 +343,10 @@ pwn.college{oGlYlmLEVRRCbXikZMwER5yxfYV.QX5QDO0wiM1AzNzEzW}
 
 # 10. Process Exit Codes
 ## My Solve
-Flag: 
+Flag: pwn.college{8qY8XTofkOH7rdxUFe6P7nL6cpK.QX5YDO1wiM1AzNzEzW}
+
+```
+hacker@processes~process-exit-codes:~$ /challenge/submit-code 16
+CORRECT! Here is your flag:
+pwn.college{8qY8XTofkOH7rdxUFe6P7nL6cpK.QX5YDO1wiM1AzNzEzW}
+```
