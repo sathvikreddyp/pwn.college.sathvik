@@ -10,7 +10,13 @@ pwn.college{EIYR2hNGqpK_Oio2q7v9XiygVGF.QXxEjN0wiM1AzNzEzW}
 
 # 2. Groups and Files
 ## My Solve
-Flag: 
+Flag: pwn.college{Q_zTN5pEgNWxKXZiEilMiMgiOvm.QXxcjM1wiM1AzNzEzW}
+
+```
+hacker@permissions~groups-and-files:~$ chgrp hacker /flag
+hacker@permissions~groups-and-files:~$ cat /flag
+pwn.college{Q_zTN5pEgNWxKXZiEilMiMgiOvm.QXxcjM1wiM1AzNzEzW}
+```
 
 # 3. Fun With Group Names
 ## My Solve
