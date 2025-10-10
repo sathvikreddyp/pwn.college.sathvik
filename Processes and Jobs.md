@@ -1,6 +1,10 @@
 # 1. Listing Processes
+In this challenge, they told that they renamed challenge/run to a random filename, and this time made it so that you cannot ls the /challenge directory. But they also launched it, so we can find it in the running process list, figure out the filename, and relaunch it directly for the flag. 
+
 ## My Solve
 Flag: pwn.college{wCkbOG0pKYhquaAxm3RP9BlVXze.QX4MDO0wiM1AzNzEzW}
+
+First I used ps -efww and directed the output of it to grep challenge command to list out the processes of those which contains only challenge word. Then I launched it to get the flag.
 
 ```
 hacker@processes~listing-processes:~$ ps -efww | grep challenge
@@ -12,9 +16,22 @@ pwn.college{wCkbOG0pKYhquaAxm3RP9BlVXze.QX4MDO0wiM1AzNzEzW}
 Now I will sleep for a while (so that you could find me with 'ps').
 ```
 
+## What I Learnt
+I learnt about the ps command, which lists processes. By default, ps just lists the processes running in your terminal. However to make it useful (only processes running in your terminal isn't that useful), we can use either the -ef command or aux command. There are 2 syntax:
+1)Standard Syntax: in this syntax, you can use -e to list "every" process and -f for a "full format" output, including arguments. These can be combined into a single argument -ef.
+2) BSD Syntax: in this syntax, you can use a to list processes for all users, x to list processes that aren't running in a terminal, and u for a "user-readable" output. These can be combined into a single argument aux
+These two methods, ps -ef and ps aux, result in slightly different, but cross-recognizable output.
+
+## References
+The references I used are the instructions provided by the pwn.college. 
+
 # 2. Killing Processes
+In this challenge, they they told that /challenge/run will refuse to run while /challenge/dont_run is running. We must find the dont_run process and kill it, then run /challenge/run to get the flag. 
+
 ## My Solve
 Flag: pwn.college{sygP8--5Y9Dw0v8zEEh29ONPSA5.QXyQDO0wiM1AzNzEzW}
+
+I first used the ps command with -ef argument, then connected that output with "grep dont_run" command, to find the /challenge/dont_run process. I found out the PID of that process, then I used the kill command to terminate the process. I then ran /challenge/run to get the flag. 
 
 ```
 hacker@processes~killing-processes:~$ ps -ef | grep dont_run
@@ -28,9 +45,19 @@ Great job! Here is your payment:
 pwn.college{sygP8--5Y9Dw0v8zEEh29ONPSA5.QXyQDO0wiM1AzNzEzW}
 ```
 
+## What I Learnt
+I learnt about the kill command, which will terminate a process when we pass the PID of the process as the argument. 
+
+## References
+The references I used are the instructions provided by the pwn.college. 
+
 # 3. Interrupting Processes
+In this challenge, they they told that /challenge/run will refuse to give the flag until we interrupt it.  
+
 ## My Solve
 Flag: pwn.college{spaedAQgp8mPRZQJFZjdu0fL87a.QXzQDO0wiM1AzNzEzW}
+
+I ran /challenge/run and then after clicking enter, I used ctrl-c, with which i got the flag.  
 
 ```
 hacker@processes~interrupting-processes:~$ /challenge/run
@@ -41,9 +68,19 @@ Good job! You have used Ctrl-C to interrupt this process! Here is your flag:
 pwn.college{spaedAQgp8mPRZQJFZjdu0fL87a.QXzQDO0wiM1AzNzEzW}
 ```
 
+## What I Learnt
+I learnt about how we can interrupt a process using ctrl-c. Ctrl-c sends an "interrupt" to whatever application is waiting on input from the terminal and, typically, this causes the application to cleanly exit.
+
+## References
+The references I used are the instructions provided by the pwn.college. 
+
 # 4. Killing Misbehaving Processes
+In this challenge, they they told that there's a decoy process that's hogging a critical resource - a named pipe (FIFO) at /tmp/flag_fifo into which /challenge/run wants to write your flag. We need to kill this process, then run /challenge/run to get the flag without being overwhelmed by decoys (we don't need to redirect its output; it'll write to the FIFO on its own).
+
 ## My Solve
 Flag: pwn.college{MWCo5ciAtEuvhlp_b5jdwCR0U6O.0FNzMDOxwiM1AzNzEzW}
+
+I firts ran the ps -ef command to list out all the processes. Then I found the /challenge/decoy process and killed it using kill comand. Then I ran /challenge/run, which sent the flag to /tmp/flag_fifo. Then i read the /tmp/flag_fifo file to get the flag.  
 
 ```
 hacker@processes~killing-misbehaving-processes:~$ ps -ef
@@ -200,9 +237,19 @@ pwn.college{tn7DC38tVdHKOQMGVcTOM7kTGtzzrZS-zj4dE4O8ntn1e21}
 pwn.college{MWCo5ciAtEuvhlp_b5jdwCR0U6O.0FNzMDOxwiM1AzNzEzW}
 ```
 
+## What I Learnt
+I learnt how to use the ps and kill command effectively.
+
+## References
+The references I used are the instructions provided by the pwn.college. 
+
 # 5. Suspending Processes
+In this challenge, they told that this level's run wants to see another copy of itself running and using the same terminal. How? Use the terminal to launch it, then suspend it, then launch another copy while the first is suspended.
+
 ## My Solve
 Flag: pwn.college{kqdgceWyAzV7YtTL_dcDUwe6EqE.QX1QDO0wiM1AzNzEzW}
+
+I first ran /challenge/run, then I clicked ctrl-z to suspend the process. Then I ran /challenge/run again to get the flag.
 
 ```
 hacker@processes~suspending-processes:~$ /challenge/run
@@ -233,9 +280,20 @@ root         163     161  0 14:52 pts/0    00:00:00 ps -f
 Yay, I found another version of me! Here is the flag:
 pwn.college{kqdgceWyAzV7YtTL_dcDUwe6EqE.QX1QDO0wiM1AzNzEzW}
 ```
+
+## What I Learnt
+I learned that we can suspend processes to the background using ctrl-z.
+
+## References
+The references I used are the instructions provided by the pwn.college. 
+
 # 6. Resuming Processes
+In this challenge, they told that this challenge's run needs you to suspend it, then resume it to get the flag.
+
 ## My Solve
 Flag: pwn.college{UvaGxcaXDFyHO2PiAl0zpjNsGd7.QX2QDO0wiM1AzNzEzW}
+
+I first ran /challenge/run process, then I suspended it with ctrl-z. I then resumed the process using fg command with the process as argument and got the flag.
 
 ```
 hacker@processes~resuming-processes:~$ /challenge/run
@@ -252,9 +310,19 @@ Don't forget to press Enter to quit me!
 Goodbye!
 ```
 
+## What I Learnt
+I learned about the fg command, which is a builtin hat takes the suspended process, resumes it, and puts it back in the foreground of your terminal.
+
+## References
+The references I used are the instructions provided by the pwn.college. 
+
 # 7. Backgrounding Processes
+In this challenge, they told that this challenge's run wants to see another copy of itself running, not suspended, and using the same terminal. How? Use the terminal to launch it, then suspend it, then background it with bg and launch another copy while the first is running in the background.
+
 ## My Solve
 Flag: pwn.college{YDnwe1YyaT5-xjuhMbzxzUTEU42.QX3QDO0wiM1AzNzEzW}
+
+I first ran /challenge/run, then suspended the process with ctrl-z. Then I ran it in the background using the bg command and then ran the process again in the shell commandline to get the flag.
 
 ```
 hacker@processes~backgrounding-processes:~$ /challenge/run
@@ -295,9 +363,20 @@ root         151 R+   ps -o user=UID,pid,stat,cmd
 Yay, I found another version of me running in the background! Here is the flag:
 pwn.college{YDnwe1YyaT5-xjuhMbzxzUTEU42.QX3QDO0wiM1AzNzEzW}
 ```
+
+## What I Learnt
+I learned about the bg command, which will basically resume the process like fg, but in the background, while fg will resume it in the foreground. This will allow the process to keep running, while giving you your shell back to invoke more commands in the meantime.
+
+## References
+The references I used are the instructions provided by the pwn.college. 
+
 # 8. Foregrounding Processes
+In this challenge, they told that this challenge's run process should first be suspended, then resumed in the background, then it has to be brought to the foreground without suspending it.
+
 ## My Solve
 Flag: pwn.college{Qusz1PcTXOAXrikftrEU9y09Sjx.QX4QDO0wiM1AzNzEzW}
+
+I first ran /challenge/run, it then showed me what I should do to get the flag. I first clicked ctrl-z to suspend the run process. Then I resumed it in the background using the bg command. I then brought it to the foreground using the fg command.
 
 ```
 hacker@processes~foregrounding-processes:~$ /challenge/run
@@ -324,9 +403,19 @@ YES! Great job! I'm now running in the foreground. Hit Enter for your flag!
 pwn.college{Qusz1PcTXOAXrikftrEU9y09Sjx.QX4QDO0wiM1AzNzEzW}
 ```
 
+## What I Learnt
+I learned that we can foreground a backgrounded process with fg, just like how we foreground a suspended process.
+
+## References
+The references I used are the instructions provided by the pwn.college. 
+
 # 9. Starting Background Processes
+In this challenge, they told that this challenge's run process should be launched backgrounded to get the flag.
+
 ## My Solve
 Flag: pwn.college{oGlYlmLEVRRCbXikZMwER5yxfYV.QX5QDO0wiM1AzNzEzW}
+
+I ran /challenge/run process, appended with "&", so that it will be backgrounded.
 
 ```
 hacker@processes~starting-backgrounded-processes:~$  /challenge/run &
@@ -341,12 +430,33 @@ Anyways! Here is your flag!
 pwn.college{oGlYlmLEVRRCbXikZMwER5yxfYV.QX5QDO0wiM1AzNzEzW}
 ```
 
+## What I Learnt
+I learned that we dont have to suspend a process to background them like previous challenges, we can start/launch them backgrounded by appending the command with "&".
+
+## References
+The references I used are the instructions provided by the pwn.college. 
+
 # 10. Process Exit Codes
+In this challenge, they told that we must retrieve the exit code returned by /challenge/get-code and then run /challenge/submit-code with that error code as an argument to get the flag.
+
 ## My Solve
 Flag: pwn.college{8qY8XTofkOH7rdxUFe6P7nL6cpK.QX5YDO1wiM1AzNzEzW}
 
+I first ran /challenge/get-code. Then i read the exit code of the command using the "?" variable with echo command (echo $?). We have to use "$" because "?" is a variable. I then got the error code, which was 40, then i ran /challenge/submit-code with 40 as argument to get the flag.
+
+
 ```
+hacker@processes~process-exit-codes:~$ /challenge/get-code
+Exiting with an error code!
+hacker@processes~process-exit-codes:~$ echo $?
+16
 hacker@processes~process-exit-codes:~$ /challenge/submit-code 16
 CORRECT! Here is your flag:
 pwn.college{8qY8XTofkOH7rdxUFe6P7nL6cpK.QX5YDO1wiM1AzNzEzW}
 ```
+
+## What I Learnt
+I learned how we can access the error codes of of the most recently-terminated command using the special "?" variable (don't forget to prepend it with "$" to read its value).
+
+## References
+The references I used are the instructions provided by the pwn.college. 
