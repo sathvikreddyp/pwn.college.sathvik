@@ -96,4 +96,30 @@ hacker@terminal-multiplexing~detaching-and-attaching-tmux:~$ 11;rgb:0c0c/0c0c/0c
 
 # 6. Switching Windows (tmux)
 ## My Solve
-FLag:
+FLag: pwn.college{Ilu-6Yr-D-GSWovvsWZRJtsFnMX.0FM5IDOxwiM1AzNzEzW}
+
+```
+hacker@terminal-multiplexing~switching-windows-tmux:~$ tmux a
+window 1:
+ Welcome to the tmux window switching challenge!
+You are currently in window 1.
+The flag is hidden in window 0.
+Use Ctrl-B 0 to switch to window 0!
+MSG
+hacker@terminal-multiplexing~switching-windows-tmux:~$  cat <<MSG
+> Welcome to the tmux window switching challenge!
+> You are currently in window 1.
+> The flag is hidden in window 0.
+> Use Ctrl-B 0 to switch to window 0!
+> MSG
+Welcome to the tmux window switching challenge!
+You are currently in window 1.
+The flag is hidden in window 0.
+Use Ctrl-B 0 to switch to window 0!
+
+window 0: 
+hacker@terminal-multiplexing~switching-windows-tmux:~$  cat <<MSG
+> Excellent work! You found window 0!
+> Here is your flag: pwn.college{Ilu-6Yr-D-GSWovvsWZRJtsFnMX.0FM5IDOxwiM1AzNzEzW}
+> MSG
+```
