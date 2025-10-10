@@ -539,4 +539,13 @@ pwn.college{0GJftLNr4ZZf2SFBa-_vbWK3Tbu.QXzETO0wiM1AzNzEzW}
 
 # 8. The SUID Bit
 ## My Solve
-Flag: 
+Flag: pwn.college{ogpWKxitXd1BB5RSqkESMcyPvHO.QXzEjN0wiM1AzNzEzW}
+
+```
+hacker@permissions~the-suid-bit:~$ chmod u+s  /challenge/getroot
+hacker@permissions~the-suid-bit:~$ /challenge/getroot
+SUCCESS! You have set the suid bit on this program, and it is running as root!
+Here is your shell...
+root@permissions~the-suid-bit:~# cat /flag
+pwn.college{ogpWKxitXd1BB5RSqkESMcyPvHO.QXzEjN0wiM1AzNzEzW}
+```
