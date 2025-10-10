@@ -8,7 +8,7 @@ Yes! You chained /challenge/pwn and /challenge/college! Here is your flag:
 pwn.college{oSPf3a3MZ50taqL4xsikAOgqANO.QX1UDO0wiM1AzNzEzW}
 ```
 
-# 2. Biulding on Success
+# 2. Building on Success
 ## My Solve
 Flag:  pwn.college{gqcCulzcxnjtI-Q5g6ZCaOe_Yny.0lM0MDOxwiM1AzNzEzW}
 
