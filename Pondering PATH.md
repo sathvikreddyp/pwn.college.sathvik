@@ -74,6 +74,8 @@ In this challenge, the win command does not exist. We have to make a shell scrip
 ## My Solve
 Flag: pwn.college{oSImB8eU6eK9IFF8e6zXcxCZPuo.QX2cjM1wiM1AzNzEzW}
 
+I first created win script and wrote cat /flag in it. Then I made sure the win script is executable by everyone. Then I assigned win script's and cat's path to PATH variable. Then I ran /challenge/run to get the flag.
+
 ```
 hacker@path~adding-commands:~$ which cat
 /run/dojo/bin/cat
@@ -102,7 +104,7 @@ pwn.college{oSImB8eU6eK9IFF8e6zXcxCZPuo.QX2cjM1wiM1AzNzEzW}
 ```
 
 ## What I Learnt
-I learnt how to use which command properly. I also learnt how to ass location of scripts to PATH variable.
+I learnt how to use which command properly. I also learnt how to assign location of scripts to PATH variable.
 
 ## References
 The references I used were the instructions provided by the pwn.college.
@@ -113,6 +115,7 @@ In this challenge, it will delete the flag using rm command without printing any
 ## My Solve
 Flag: pwn.college{0hL3IBr3r4An6XDm1iiju4vm-1v.QX3cjM1wiM1AzNzEzW}
 
+I first created rm script and wrote cat /flag in it. Then I made sure the win script is executable by everyone. Then I assigned win script's and cat's path to PATH variable. Then I ran /challenge/run to get the flag
 
 ```
 hacker@path~hijacking-commands:~$ nano rm
